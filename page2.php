@@ -8,7 +8,9 @@ include("produits.php");
          // Récupérer l'ID du produit sélectionné
 
 $choix = $_GET["id"] ?? 0;
-
+if (!isset($_SESSION['panier'])){
+    $_SESSION['panier'] = array();
+}
        // creation de mes  variables elles vont vérifier si le produit existe ;)
 
 $produit = array();
@@ -22,14 +24,6 @@ foreach ($produits as $p) {
         break;
     }
 }
-
-// pour lier ma page produits php base de donnée
-
-include("produits.php");
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +72,7 @@ include("produits.php");
                 
                 <p class="price"><?=$produits[$choix-1]["price"];?> €</p>
                 
-                <button class="panier"><a href="armetirecart.php"><?=$choix;?></a>Ajouter au Panier</button>
+                <a href="ajout.php?choix=<?=$choix;?>"><button class="panier">Ajouter au Panier</button></a>
             </div>
     </div>
                  <?php else: ?>
