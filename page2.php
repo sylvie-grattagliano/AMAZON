@@ -8,15 +8,21 @@ include("produits.php");
          // Récupérer l'ID du produit sélectionné
 
 $choix = $_GET["id"] ?? 0;
+
+//!isset verifie  si le panier est déjà initialisé
+
 if (!isset($_SESSION['panier'])){
     $_SESSION['panier'] = array();
 }
-       // creation de mes  variables elles vont vérifier si le produit existe ;)
+       // creation  variables elles vont vérifier si le produit existe ;)
 
 $produit = array();
-//variable  par defaut confirme que article pas trouvé 
+
+// CREATION DE LA VARIABLE confirme que article pas trouvé 
+
 $produitExiste = false; 
-// boucle speciale pour tableau associatif
+
+//  continue la  boucle speciale pour tableau associatif
 foreach ($produits as $p) {
     if ($p["id"] == $choix) {
         $produit = $p;
@@ -67,12 +73,9 @@ foreach ($produits as $p) {
 
                 <h2><?=$produits[$choix-1]['name'];?></h2>
                 <p class="description"><?=$produits[$choix-1]["overview"];?></p>
-                <!--<div class="product-image">-->
-
-                
                 <p class="price"><?=$produits[$choix-1]["price"];?> €</p>
                 
-                <a href="ajout.php?choix=<?=$choix;?>"><button class="panier">Ajouter au Panier</button></a>
+                <a href="ajout.php?id=<?=$choix;?>"><button class="panier">Ajouter au Panier</button></a>
             </div>
     </div>
                  <?php else: ?>
