@@ -5,28 +5,31 @@ session_start();
 
 include("produits.php");
 
-         // Récupérer l'ID du produit sélectionné
+         // Récupérer l'ID du produit sélectionné via get valeur par defaut change par nlee variable plus comprehensible
 
-$choix = $_GET["id"] ?? 0;
+//$choix = $_GET["id"] ?? 0;
+$id = $_GET["id"] ?? 0;
 
-//!isset verifie  si le panier est déjà initialisé
+//!isset verifie  si le panier est déjà initialisé si non, j'ai deplacé ver ajout.php
 
-if (!isset($_SESSION['panier'])){
+/*if (!isset($_SESSION['panier'])){
     $_SESSION['panier'] = array();
-}
-       // creation  variables elles vont vérifier si le produit existe ;)
+}*/
+
+       // creation  variable tableau vide
 
 $produit = array();
 
-// CREATION DE LA VARIABLE confirme que article pas trouvé 
+// variable produit article existe ou pas
 
 $produitExiste = false; 
 
-//  continue la  boucle speciale pour tableau associatif
+
 foreach ($produits as $p) {
-    if ($p["id"] == $choix) {
+    if ($p["id"] == $id) {
         $produit = $p;
         $produitExiste = true;
+
         break;
     }
 }
@@ -45,44 +48,45 @@ foreach ($produits as $p) {
 <header>
         <img src= "\runtrack2bis\meutre facile\logo.png" width="200px" id="logo">
         <h1>Meurtre Facile</h1>
-    </header>
+</header>
     <nav>
             <p><a href="page1.php">Accueil</a></p>
-            <p><a href="#archerie">Archerie</a></p>
-            <p><a href="#arme-a-feu">Arme à feu</a></p>
-            <p><a href="#arme-de-defense">Arme de défense</a></p>
-            <p><a href="#arme-de-loisirs">Arme de loisirs</a></p>
-            <p><a href="#munitions">Munitions</a></p>
+            <p><a href="page1.php#archerie">Archerie</a></p>
+            <p><a href="page1.php#arme-a-feu">Arme à feu</a></p>
+            <p><a href="page1.php#arme-de-defense">Arme de défense</a></p>
+            <p><a href="page1.php#arme-de-loisirs">Arme de loisirs</a></p>
+            <p><a href="page1.php#munitions">Munitions</a></p>
     </nav>
 
 <main>
-                <!--produit -->
 
     <div> 
-        <main>
+        
             
-             <div class="bloc1">
+            <div class="bloc1">
                 
-           <?php if ($produitExiste): ?>
+          <?php if ($produitExiste): ?>
 
-            <div class="product-image">
-            <img src="<?=$produits[$choix-1]["image"];?>"> </p>
-    </div>
+
+               <div class="product-image">
+               <img src="<?=$produits[$id-1]["image"];?>"> 
+             </div>
 
            <div class="product-details">
 
-                <h2><?=$produits[$choix-1]['name'];?></h2>
-                <p class="description"><?=$produits[$choix-1]["overview"];?></p>
-                <p class="price"><?=$produits[$choix-1]["price"];?> €</p>
+                <h2><?=$produits[$id-1]['name'];?></h2>
+                <p class="description"><?=$produits[$id-1]["overview"];?></p>
+                <p class="price"><?=$produits[$id-1]["price"];?> €</p>
                 
-                <a href="ajout.php?id=<?=$choix;?>"><button class="panier">Ajouter au Panier</button></a>
+                <a href="ajout.php?id=<?=$id;?>"><button class="panier">Ajouter au Panier</button></a>
+
             </div>
     </div>
-                 <?php else: ?>
-    <div class="erreur">
+         <?php else: ?>
+                <div class="erreur">
                   <p>Erreur : Produit non trouvé.</p>
-            </div>
-                <?php endif; ?>
+                </div>
+        <?php endif; ?>
 
     </main>
  
